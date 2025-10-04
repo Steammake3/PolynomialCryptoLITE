@@ -1,5 +1,4 @@
 import sys, time, os
-from termcolor import colored
 import consts, functions
 
 def clear_screen():
@@ -49,8 +48,8 @@ def option_selection():
             raise UserWarning
 
 print("\n"*4)
-print(colored("Welcome to, ", "green"))
-print(colored(consts.cool_text, (0, 200, 25), attrs=["blink"]) + "\n"*2)
+print("Welcome to, ")
+print(consts.cool_text + "\n"*2)
 
 time.sleep(1)
 clear_screen()
@@ -63,7 +62,7 @@ while True:
     except UserWarning: pass
     except:
         print("\n\n----------------------------\n")
-        print(colored(consts.rand_error, "red"))
+        print(consts.rand_error)
         input(); clear_screen()
     print("\n"*4)
     if input("\nPress enter to use this tool again, type anything to exit\n\n>>> "):

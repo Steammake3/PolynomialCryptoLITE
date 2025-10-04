@@ -1,20 +1,19 @@
-from termcolor import colored, cprint
 import msg_handling, time, random, lagrange
 
 def not_accepted(choice):
-    return (colored(f"The choice {choice} is not supported- Please try again", "red", attrs=["bold"]))
+    return (f"The choice {choice} is not supported- Please try again")
 
 def case_alpha():
     text = input("Unformatted text- ")
     key = input("Unformatted key length- ")
     time.sleep(0.5)
     retval = msg_handling.MSG_Handler().minGF_calc(len(text), int(key))
-    print("\nField size should be", colored(str(retval), "blue"), "to accomodate\n")
+    print("\nField size should be", str(retval), "to accomodate\n")
 
     if input("Would you also like to generate a key? (Y/N) - ").lower()[0]=="y":
         handler = msg_handling.MSG_Handler()
         handler.accommodate(0, retval) #Now the randkey will be printed and its a sussy oneliner
-        cprint(handler.get_str_of_points([random.randint(0, retval-1) for useless in "+"*int(key)]), "blue")
+        print(handler.get_str_of_points([random.randint(0, retval-1) for useless in "+"*int(key)]))
     else:
         print("Thank you anyhow")
 
@@ -31,14 +30,14 @@ def case_beta():
         final += text[i]
         final += handler.BASE97[random.randint(0, handler.possibilities(handler.BASE97.index(text[i]))-1)]
 
-    print("\nFormatted text is-\n", colored(final, "blue")+"\n")
+    print("\nFormatted text is-\n", final +"\n")
 
 def case_kappa():
     text = input("Formatted text- ")
-    print("\nUnformatted text is\n" + colored(text[::2], "blue") + "\n")
+    print("\nUnformatted text is\n" + text[::2] + "\n")
 
 def case_delta():
-    cprint("WARNING - text and key must be formatted correctly; Otherwise, behavior will be entirely unexpected\n", color="red")
+    print("WARNING - text and key must be formatted correctly; Otherwise, behavior will be entirely unexpected\n")
     time.sleep(1)
     text = input("Formatted text- ")
     key = input("Formatted key- ")
@@ -58,16 +57,16 @@ def case_delta():
     poly = interpolater.interpolate(key_points+txt_points)
 
     retvals = [poly.eval(f) for f in range(len(text))]
-    print("The decrypted formatted text is,\n\n", colored(handler.get_str_of_points(retvals), "blue"))
+    print("The decrypted formatted text is,\n\n", handler.get_str_of_points(retvals))
 
     #Ask if should be unformatted
     if input("\n\nWOuld you like an unformatted version of the text? (Y/N) - ").lower()[0] == "y":
         for i in range(20):
             print("-", flush=True, end=""); time.sleep(0.01)
-        print(""); cprint(handler.get_str_of_points(retvals)[::2], "blue")
+        print(""); print(handler.get_str_of_points(retvals)[::2])
 
 def case_epsilon():
-    cprint("WARNING - text and key must be formatted correctly; Otherwise, behavior will be entirely unexpected\n", color="red")
+    print("WARNING - text and key must be formatted correctly; Otherwise, behavior will be entirely unexpected\n")
     time.sleep(1)
 
     #Input handling
@@ -88,4 +87,4 @@ def case_epsilon():
     poly = interpolater.interpolate(txt_points+key_points)
 
     retvals = [poly.eval(f) for f in range(len(text)+len(key), 2*len(text)+len(key))]
-    cprint("The encrypted formatted text is,\n\n" + handler.get_str_of_points(retvals), "blue")
+    print("The encrypted formatted text is,\n\n" + handler.get_str_of_points(retvals))

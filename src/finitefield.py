@@ -1,19 +1,3 @@
-def eGCD(a, b):
-   if abs(b) > abs(a):
-      (x,y,d) = eGCD(b, a)
-      return (y,x,d)
-
-   if abs(b) == 0: return (1, 0, a)
-
-   x1, x2, y1, y2 = 0, 1, 1, 0
-   while abs(b) > 0:
-      q, r = divmod(a,b)
-      x = x2 - q*x1
-      y = y2 - q*y1
-      a, b, x2, x1, y2, y1 = b, r, x1, x, y1, y
-
-   return (x2, y2, a)
-
 def isprime(a):
      return not (a < 2 or any(a % x == 0 for x in range(2, int(a ** 0.5) + 1)))
 
